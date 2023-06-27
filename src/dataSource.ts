@@ -1564,6 +1564,7 @@ export class DataSource extends Disposable {
 			// Show All
 			args.push('--branches');
 			if (includeTags) args.push('--tags');
+			else if(simplifyByDecoration) args.push('--decorate-refs-exclude=refs/tags/');
 			if (includeCommitsMentionedByReflogs) args.push('--reflog');
 			if (includeRemotes) {
 				if (hideRemotes.length === 0) {
