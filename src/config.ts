@@ -220,6 +220,7 @@ class Config {
 			merge: {
 				noCommit: !!this.config.get('dialog.merge.noCommit', false),
 				noFastForward: !!this.config.get('dialog.merge.noFastForward', true),
+				allowUnrelatedHistories: !!this.config.get('dialog.merge.allowUnrelatedHistories', false),
 				squash: !!this.config.get('dialog.merge.squashCommits', false)
 			},
 			popStash: {

@@ -639,6 +639,11 @@
 					"default": true,
 					"description": "Default state of the \"Create a new commit even if fast-forward is possible\" checkbox."
 				},
+				"git-graph.dialog.merge.allowUnrelatedHistories": {
+					"type": "boolean",
+					"default": false,
+					"description": "Default state of the \"Allow unrelated histories\" checkbox."
+				},
 				"git-graph.dialog.merge.squashCommits": {
 					"type": "boolean",
 					"default": false,

@@ -449,7 +449,7 @@ export class GitGraphView extends Disposable {
 				this.sendMessage({
 					command: 'merge',
 					actionOn: msg.actionOn,
-					error: await this.dataSource.merge(msg.repo, msg.obj, msg.actionOn, msg.createNewCommit, msg.squash, msg.noCommit)
+					error: await this.dataSource.merge(msg.repo, msg.obj, msg.actionOn, msg.createNewCommit, msg.allowUnrelatedHistories, msg.squash, msg.noCommit)
 				});
 				break;
 			case 'openExtensionSettings':

@@ -497,6 +497,7 @@ export interface DialogDefaults {
 	readonly merge: {
 		readonly noCommit: boolean,
 		readonly noFastForward: boolean,
+		readonly allowUnrelatedHistories: boolean,
 		readonly squash: boolean
 	};
 	readonly popStash: {
@@ -986,6 +987,7 @@ export interface RequestMerge extends RepoRequest {
 	readonly obj: string;
 	readonly actionOn: MergeActionOn;
 	readonly createNewCommit: boolean;
+	readonly allowUnrelatedHistories: boolean;
 	readonly squash: boolean;
 	readonly noCommit: boolean;
 }

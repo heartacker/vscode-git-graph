@@ -1021,7 +1021,7 @@ export class DataSource extends Disposable {
 	 * @param noCommit Is `--no-commit` enabled.
 	 * @returns The ErrorInfo from the executed command.
 	 */
-	public merge(repo: string, obj: string, actionOn: MergeActionOn, createNewCommit: boolean, squash: boolean, noCommit: boolean) {
+	public merge(repo: string, obj: string, actionOn: MergeActionOn, createNewCommit: boolean, allowUnrelatedHistories: boolean, squash: boolean, noCommit: boolean) {
 		const args = ['merge', obj], config = getConfig();
 		if (squash) {
 			args.push('--squash');
@@ -1033,6 +1033,9 @@ export class DataSource extends Disposable {
 		}
 		if (config.signCommits) {
 			args.push('-S');
+		}
+		if (allowUnrelatedHistories) {
+			args.push('--allow-unrelated-histories');
 		}
 		return this.runGitCommand(args, repo).then((mergeStatus) => {
 			return mergeStatus === null && squash && !noCommit

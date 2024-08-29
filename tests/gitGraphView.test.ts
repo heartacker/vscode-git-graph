@@ -2624,13 +2624,14 @@ describe('GitGraphView', () => {
 					obj: 'master',
 					actionOn: MergeActionOn.Branch,
 					createNewCommit: true,
+					allowUnrelatedHistories: false,
 					squash: false,
 					noCommit: false
 				});
 
 				// Assert
 				await waitForExpect(() => {
-					expect(spyOnMerge).toHaveBeenCalledWith('/path/to/repo', 'master', MergeActionOn.Branch, true, false, false);
+					expect(spyOnMerge).toHaveBeenCalledWith('/path/to/repo', 'master', MergeActionOn.Branch, true, false, false, false);
 					expect(messages).toStrictEqual([
 						{
 							command: 'merge',
@@ -2654,13 +2655,14 @@ describe('GitGraphView', () => {
 					obj: 'master',
 					actionOn: MergeActionOn.Branch,
 					createNewCommit: false,
+					allowUnrelatedHistories: false,
 					squash: true,
 					noCommit: false
 				});
 
 				// Assert
 				await waitForExpect(() => {
-					expect(spyOnMerge).toHaveBeenCalledWith('/path/to/repo', 'master', MergeActionOn.Branch, false, true, false);
+					expect(spyOnMerge).toHaveBeenCalledWith('/path/to/repo', 'master', MergeActionOn.Branch, false, false, true, false);
 					expect(messages).toStrictEqual([
 						{
 							command: 'merge',
@@ -2684,13 +2686,14 @@ describe('GitGraphView', () => {
 					obj: 'master',
 					actionOn: MergeActionOn.Branch,
 					createNewCommit: false,
+					allowUnrelatedHistories: false,
 					squash: false,
 					noCommit: true
 				});
 
 				// Assert
 				await waitForExpect(() => {
-					expect(spyOnMerge).toHaveBeenCalledWith('/path/to/repo', 'master', MergeActionOn.Branch, false, false, true);
+					expect(spyOnMerge).toHaveBeenCalledWith('/path/to/repo', 'master', MergeActionOn.Branch, false, false, false, true);
 					expect(messages).toStrictEqual([
 						{
 							command: 'merge',
