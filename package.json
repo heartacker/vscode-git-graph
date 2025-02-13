@@ -542,6 +542,24 @@
 					},
 					"description": "An object specifying the default visibility of the Date, Author & Commit columns. Example: {\"Date\": true, \"Author\": true, \"Commit\": true}"
 				},
+				"git-graph.toolbarButtonVisibility": {
+					"type": "object",
+					"properties": {
+						"Remotes": {
+							"type": "boolean",
+							"title": "Visibility of the Remotes checkbox"
+						},
+						"Simplify": {
+							"type": "boolean",
+							"title": "Visibility of the Simplify checkbox"
+						}
+					},
+					"default": {
+						"Remotes": true,
+						"Simplify": true
+					},
+					"description": "An object specifying the default visibility of the items of the tool bar. Example: {\"Remotes\": true\", Simplify\": true}"
+				},
 				"git-graph.dialog.addTag.pushToRemote": {
 					"type": "boolean",
 					"default": false,

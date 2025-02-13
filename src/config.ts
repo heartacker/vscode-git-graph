@@ -25,7 +25,8 @@ import {
 	RepoDropdownOrder,
 	SquashMessageFormat,
 	TabIconColourTheme,
-	TagType
+	TagType,
+	ToolbarButtonVisibility
 } from './types';
 
 const VIEW_COLUMN_MAPPING: { [column: string]: vscode.ViewColumn } = {
@@ -165,6 +166,18 @@ class Config {
 			return { author: obj['Author'], commit: obj['Commit'], date: obj['Date'] };
 		} else {
 			return { author: true, commit: true, date: true };
+		}
+	}
+
+	/**
+	 * Get the value of the `git-graph.toolbarButtonVisibility` Extension Setting.
+	 */
+	get toolbarButtonVisibility(): ToolbarButtonVisibility {
+		let obj: any = this.config.get('toolbarButtonVisibility', {});
+		if (typeof obj === 'object' && obj !== null && typeof obj['Remotes'] === 'boolean' && typeof obj['Simplify'] === 'boolean') {
+			return { remotes: obj['Remotes'], simplify: obj['Simplify'] };
+		} else {
+			return { remotes: true, simplify: true };
 		}
 	}
 

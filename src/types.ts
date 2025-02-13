@@ -267,6 +267,7 @@ export interface GitGraphViewConfig {
 	readonly showStashes: boolean;
 	readonly showTags: boolean;
 	readonly stickyHeader: boolean;
+	readonly toolbarButtonVisibility: ToolbarButtonVisibility;
 }
 
 export interface GitGraphViewGlobalState {
@@ -458,6 +459,11 @@ export interface DefaultColumnVisibility {
 	readonly date: boolean;
 	readonly author: boolean;
 	readonly commit: boolean;
+}
+
+export interface ToolbarButtonVisibility {
+	readonly remotes: boolean;
+	readonly simplify: boolean;
 }
 
 export interface DialogDefaults {
