@@ -1,8 +1,12 @@
 # Git Graph extension for Visual Studio Code
 
-Fork of mhutchies Git Graph with further improvements.  
+Fork of mhutchie's Git Graph with further improvements.  
 Main improvements:
 
+* Added checkbox 'Allow unrelated histories' when merge action
+* New setting `git-graph.toolbarButtonVisibility` to configure the visibility of some items of the toolbar. For example: `{"Remotes": true, "Simplify": true}
+* Added simplifyByDecoration checkbox (hansu#33)
+* Fix right clicks triggers native context menu on macOS (hansu#38)
 * Added button to jump to HEAD (hansu#14)
 * Added collapse/expand buttons to commit diff view (hansu#6)
 * Resize column width without header (hansu#4)
