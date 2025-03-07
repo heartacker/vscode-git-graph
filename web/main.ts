@@ -2648,7 +2648,7 @@ class GitGraphView {
 				// Commit comparison should be shown
 				html += 'Displaying all changes from <b>' + commitOrder.from + '</b> to <b>' + (commitOrder.to !== UNCOMMITTED ? commitOrder.to : 'Uncommitted Changes') + '</b>.';
 			}
-			html += '</div><div id="cdvFiles">' + generateFileViewHtml(expandedCommit.fileTree!, expandedCommit.fileChanges!, expandedCommit.lastViewedFile, expandedCommit.contextMenuOpen.fileView, this.getFileViewType(), commitOrder.to === UNCOMMITTED) + '</div><div id="cdvDivider"></div>';
+			html += '</div><div id="cdvFiles"><div id="cdvSummaryToggleBtn">' + SVG_ICONS.collapse + '</div><div id="cdvFilesView">' + generateFileViewHtml(expandedCommit.fileTree!, expandedCommit.fileChanges!, expandedCommit.lastViewedFile, expandedCommit.contextMenuOpen.fileView, this.getFileViewType(), commitOrder.to === UNCOMMITTED) + '</div></div><div id="cdvDivider"></div>';
 		}
 		html += '</div><div id="cdvControls"><div id="cdvClose" class="cdvControlBtn" title="Close">' + SVG_ICONS.close + '</div>' +
 			(codeReviewPossible ? '<div id="cdvCodeReview" class="cdvControlBtn">' + SVG_ICONS.review + '</div>' : '') +
@@ -2730,6 +2730,10 @@ class GitGraphView {
 			document.getElementById('cdvExpand')!.addEventListener('click', () => {
 				this.openFolders(true);
 			});
+			document.getElementById('cdvSummaryToggleBtn')!.addEventListener('click', () => {
+				this.gitRepos[this.currentRepo].isCdvSummaryHidden = !(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
+				this.hideCdvSummary(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
+			});
 
 			if (codeReviewPossible) {
 				this.renderCodeReviewBtn();
@@ -2771,6 +2775,13 @@ class GitGraphView {
 				});
 			}
 		}
+	}
+
+	private hideCdvSummary(hidden: boolean) {
+		let btn = document.getElementById('cdvSummaryToggleBtn');
+		if (hidden) {
+			btn!.classList.add('flipHorizontal');
+		} else btn!.classList.remove('flipHorizontal');
 	}
 
 	private setCdvHeight(elem: HTMLElement, isDocked: boolean) {

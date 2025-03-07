@@ -464,15 +464,40 @@ table { border-collapse: collapse; }
 	fill:#e00000;
 	opacity:0.8;
 }
+#cdvSummaryToggleBtn{
+	position: absolute;
+	top:0;
+	margin:0;
+	left:-21px;
+	z-index:100;
+	overflow:visible;
+	cursor:pointer;
+	padding:2px;
+	width:16px;
+	height:16px;
+    background-color: color-mix(in srgb, var(--vscode-editor-background) 90%, rgba(128, 128, 128,1));}
 
+#cdvSummaryToggleBtn svg{
+	fill:var(--vscode-editor-foreground);
+	fill-opacity:0.6;
+}
+.flipHorizontal{
+	transform: rotate(180deg);
+}
 #cdvFiles{
 	left:50%;
 	right:0;
 	padding:4px 8px 8px 0;
 	-webkit-user-select:none;
 	user-select:none;
+	overflow: visible;
 }
-#cdvFiles ul{
+#cdvFilesView{
+	overflow-x:hidden;
+	overflow-y:auto;
+	height: 100%;
+}
+#cdvFilesView ul{
 	list-style-type:none;
 	-webkit-margin-before:0;
 	-webkit-margin-after:0;
@@ -482,11 +507,11 @@ table { border-collapse: collapse; }
 	margin:0;
 	padding:0 0 0 25px;
 }
-#cdvFiles > ul{
+#cdvFilesView > ul{
 	-webkit-padding-start:10px;
 	padding:0 0 0 10px;
 }
-#cdvFiles li{
+#cdvFilesView li{
 	margin-top:4px;
 	white-space:nowrap;
 	text-overflow:ellipsis;

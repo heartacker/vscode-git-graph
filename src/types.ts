@@ -222,6 +222,7 @@ export interface GitRepoState {
 	showStashes: BooleanOverride;
 	showTags: BooleanOverride;
 	workspaceFolderIndex: number | null;
+	isCdvSummaryHidden: boolean;
 }
 
 

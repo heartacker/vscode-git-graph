@@ -45,7 +45,8 @@ const SVG_ICONS = {
 
 	// The SVG icons below are from  https://github.com/microsoft/vscode-icons
 	collapseAll: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 9H4V10H9V9Z" fill="#C5C5C5"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5 3L6 2H13L14 3V10L13 11H11V13L10 14H3L2 13V6L3 5H5V3ZM6 5H10L11 6V10H13V3H6V5ZM10 6H3V13H10V6Z" fill="#C5C5C5"/></svg>',
-	expandAll: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 9H4V10H9V9Z" fill="#C5C5C5"/><path d="M7 12L7 7L6 7L6 12L7 12Z" fill="#C5C5C5"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5 3L6 2H13L14 3V10L13 11H11V13L10 14H3L2 13V6L3 5H5V3ZM6 5H10L11 6V10H13V3H6V5ZM10 6H3V13H10V6Z" fill="#C5C5C5"/></svg>'
+	expandAll: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 9H4V10H9V9Z" fill="#C5C5C5"/><path d="M7 12L7 7L6 7L6 12L7 12Z" fill="#C5C5C5"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5 3L6 2H13L14 3V10L13 11H11V13L10 14H3L2 13V6L3 5H5V3ZM6 5H10L11 6V10H13V3H6V5ZM10 6H3V13H10V6Z" fill="#C5C5C5"/></svg>',
+	collapse: '<svg style="transform: rotate(-90deg);" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd"  d="M14.207 1.707L13.5 1L7.49997 7L1.49997 1L0.792969 1.707L7.14597 8.061H7.85397L14.207 1.707ZM14.207 7.70688L13.5 6.99988L7.49997 12.9999L1.49997 6.99988L0.792969 7.70688L7.14597 14.0609H7.85397L14.207 7.70688Z"/></svg>'
 };
 
 const GIT_FILE_CHANGE_TYPES = { 'A': 'Added', 'M': 'Modified', 'D': 'Deleted', 'R': 'Renamed', 'U': 'Untracked' };
