@@ -184,6 +184,7 @@ class GitGraphView {
 				name: this.gitRepos[this.currentRepo].name || getRepoName(this.currentRepo)
 			}, 'Opening Terminal');
 		});
+		this.gitRepos[this.currentRepo].isCdvSummaryHidden = this.config.commitDetailsView.initiallyHideCdvSummary;
 	}
 
 

@@ -288,6 +288,7 @@ export interface CommitDetailsViewConfig {
 	readonly fileTreeCompactFolders: boolean;
 	readonly fileViewType: FileViewType;
 	readonly location: CommitDetailsViewLocation;
+	readonly initiallyHideCdvSummary: boolean;
 }
 
 export interface GraphConfig {
