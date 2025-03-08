@@ -2648,7 +2648,7 @@ class GitGraphView {
 				// Commit comparison should be shown
 				html += 'Displaying all changes from <b>' + commitOrder.from + '</b> to <b>' + (commitOrder.to !== UNCOMMITTED ? commitOrder.to : 'Uncommitted Changes') + '</b>.';
 			}
-			html += '</div><div id="cdvFiles"><div id="cdvSummaryToggleBtn">' + SVG_ICONS.collapse + '</div><div id="cdvFilesViewWrapper"><div id="cdvFilesView">' + generateFileViewHtml(expandedCommit.fileTree!, expandedCommit.fileChanges!, expandedCommit.lastViewedFile, expandedCommit.contextMenuOpen.fileView, this.getFileViewType(), commitOrder.to === UNCOMMITTED) + '</div></div></div><div id="cdvDivider"></div>';
+			html += '</div><div id="cdvFiles">' + (!isDocked ? '<div id="cdvSummaryToggleBtn">' + SVG_ICONS.collapse + '</div>' : '') + '<div id="cdvFilesViewWrapper"><div id="cdvFilesView">' + generateFileViewHtml(expandedCommit.fileTree!, expandedCommit.fileChanges!, expandedCommit.lastViewedFile, expandedCommit.contextMenuOpen.fileView, this.getFileViewType(), commitOrder.to === UNCOMMITTED) + '</div></div></div><div id="cdvDivider"></div>';
 		}
 		html += '</div><div id="cdvControls"><div id="cdvClose" class="cdvControlBtn" title="Close">' + SVG_ICONS.close + '</div>' +
 			(codeReviewPossible ? '<div id="cdvCodeReview" class="cdvControlBtn">' + SVG_ICONS.review + '</div>' : '') +
@@ -2731,7 +2731,8 @@ class GitGraphView {
 			document.getElementById('cdvExpand')!.addEventListener('click', () => {
 				this.openFolders(true);
 			});
-			document.getElementById('cdvSummaryToggleBtn')!.addEventListener('click', () => {
+			let cdvSummaryToggleBtn = document.getElementById('cdvSummaryToggleBtn');
+			if (cdvSummaryToggleBtn !== null) cdvSummaryToggleBtn.addEventListener('click', () => {
 				this.gitRepos[this.currentRepo].isCdvSummaryHidden = !(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
 				this.hideCdvSummary(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
 			});
@@ -2782,11 +2783,11 @@ class GitGraphView {
 	private hideCdvSummary(hide: boolean) {
 		let btn = document.getElementById('cdvSummaryToggleBtn');
 		let cdvSummary = document.getElementById('cdvSummary');
-		if (hide) {
-			btn!.classList.add('flipHorizontal');
+		if (hide && !this.isCdvDocked()) {
+			if (btn) btn.classList.add('flipHorizontal');
 			cdvSummary!.classList.add('hidden');
 		} else {
-			btn!.classList.remove('flipHorizontal');
+			if (btn) btn!.classList.remove('flipHorizontal');
 			cdvSummary!.classList.remove('hidden');
 		}
 		let elem = document.getElementById('cdv');
