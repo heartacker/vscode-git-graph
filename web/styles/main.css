@@ -334,6 +334,7 @@ table { border-collapse: collapse; }
 	position:absolute;
 	right:0;
 	width:32px;
+	overflow: hidden;
 }
 
 .cdvControlBtn{
@@ -397,10 +398,15 @@ table { border-collapse: collapse; }
 	top:0;
 	bottom:0;
 	box-sizing:border-box;
-	border-right:1px solid rgba(128,128,128,0.2);
 	overflow-x:hidden;
 	overflow-y:auto;
 }
+#cdvSummary, #cdvFiles, #cdvLoading, #cdvControls {
+	background-color: color-mix(in srgb, var(--vscode-editor-background) 90%, rgba(128, 128, 128,1));
+	border-left:1px solid rgba(128,128,128,0.2);
+	border-bottom:2px solid rgba(128,128,128,0.2);
+}
+
 #cdvDivider{
 	position:absolute;
 	left:50%;
@@ -484,6 +490,9 @@ table { border-collapse: collapse; }
 .flipHorizontal{
 	transform: rotate(180deg);
 }
+.hidden{
+	visibility:hidden;
+}
 #cdvFiles{
 	left:50%;
 	right:0;
@@ -551,16 +560,13 @@ table { border-collapse: collapse; }
 	top:0;
 	bottom:2px;
 }
-#cdv.inline #cdvContent{
-	border-left:1px solid rgba(128,128,128,0.2);
-}
+
 #cdv.inline #cdvDivider{
 	top:0;
 	bottom:6px;
 }
 #cdv.inline .cdvHeightResize{
 	bottom:0;
-	border-bottom:2px solid rgba(128,128,128,0.2);
 }
 
 #cdv.docked #cdvContent, #cdv.docked #cdvControls{

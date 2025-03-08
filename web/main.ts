@@ -2777,11 +2777,16 @@ class GitGraphView {
 		}
 	}
 
-	private hideCdvSummary(hidden: boolean) {
+	private hideCdvSummary(hide: boolean) {
 		let btn = document.getElementById('cdvSummaryToggleBtn');
-		if (hidden) {
+		let cdvSummary = document.getElementById('cdvSummary');
+		if (hide) {
 			btn!.classList.add('flipHorizontal');
-		} else btn!.classList.remove('flipHorizontal');
+			cdvSummary!.classList.add('hidden');
+		} else {
+			btn!.classList.remove('flipHorizontal');
+			cdvSummary!.classList.remove('hidden');
+		}
 	}
 
 	private setCdvHeight(elem: HTMLElement, isDocked: boolean) {
@@ -2823,7 +2828,7 @@ class GitGraphView {
 				this.gitRepos[this.currentRepo].cdvHeight = height;
 				let elem = document.getElementById('cdv');
 				if (elem !== null) this.setCdvHeight(elem, isDocked);
-				if (!isDocked) this.renderGraph();
+				//if (!isDocked) this.renderGraph();
 			}
 		};
 		const stopResizingCdvHeight: EventListener = (e) => {
