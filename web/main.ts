@@ -2609,7 +2609,7 @@ class GitGraphView {
 		}
 
 		if (expandedCommit.loading) {
-			html += '<div id="cdvLoading">' + SVG_ICONS.loading + ' Loading ' + (expandedCommit.compareWithHash === null ? expandedCommit.commitHash !== UNCOMMITTED ? 'Commit Details' : 'Uncommitted Changes' : 'Commit Comparison') + ' ...</div>';
+			html += '<div id="cdvFiles"></div><div id="cdvLoading">' + SVG_ICONS.loading + ' Loading ' + (expandedCommit.compareWithHash === null ? expandedCommit.commitHash !== UNCOMMITTED ? 'Commit Details' : 'Uncommitted Changes' : 'Commit Comparison') + ' ...</div>';
 		} else {
 			html += '<div id="cdvSummary">';
 			if (expandedCommit.compareWithHash === null) {

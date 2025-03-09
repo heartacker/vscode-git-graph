@@ -554,7 +554,7 @@ table { border-collapse: collapse; }
 	line-height:24px;
 	text-overflow:ellipsis;
 	opacity: 0;
-  	animation: fadeIn 1.5s ease-in-out 1s forwards;
+  	animation: fadeIn 0.25s ease-in-out 1s forwards;
 }
 @keyframes fadeIn {
 	0% {
