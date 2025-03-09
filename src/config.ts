@@ -73,7 +73,7 @@ class Config {
 			location: this.getRenamedExtensionSetting<string>('commitDetailsView.location', 'commitDetailsViewLocation', 'Inline') === 'Docked to Bottom'
 				? CommitDetailsViewLocation.DockedToBottom
 				: CommitDetailsViewLocation.Inline,
-			initiallyHideCdvSummary: this.config.get('commitDetailsView.initiallyHideCdvSummary', false)
+			initiallyHideSummary: this.config.get('commitDetailsView.initiallyHideSummary', false)
 		};
 	}
 
