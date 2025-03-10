@@ -2782,13 +2782,13 @@ class GitGraphView {
 	}
 
 	private hideCdvSummary(hide: boolean) {
-		let btn = document.getElementById('cdvSummaryToggleBtn');
+		let btnIcon = document.getElementById('cdvSummaryToggleBtn')?.getElementsByTagName('svg')?.[0] ?? null;
 		let cdvSummary = document.getElementById('cdvSummary');
 		if (hide && !this.isCdvDocked()) {
-			if (btn) btn.classList.add('flipHorizontal');
+			if (btnIcon) btnIcon.style.transform = 'rotate(-90deg)';
 			cdvSummary!.classList.add('hidden');
 		} else {
-			if (btn) btn!.classList.remove('flipHorizontal');
+			if (btnIcon) btnIcon.style.transform = 'rotate(90deg)';
 			cdvSummary!.classList.remove('hidden');
 		}
 		let elem = document.getElementById('cdv');

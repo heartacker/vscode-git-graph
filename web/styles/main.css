@@ -483,14 +483,13 @@ table { border-collapse: collapse; }
 	padding:2px;
 	width:16px;
 	height:16px;
-    background-color: color-mix(in srgb, var(--vscode-editor-background) 90%, rgba(128, 128, 128,1));}
+    background-color: color-mix(in srgb, var(--vscode-editor-background) 90%, rgba(128, 128, 128,1));
+	border-left: 1px solid var(--vscode-editor-background);
+}
 
 #cdvSummaryToggleBtn svg{
 	fill:var(--vscode-editor-foreground);
 	fill-opacity:0.6;
-}
-.flipHorizontal{
-	transform: rotate(180deg);
 }
 .hidden{
 	display: none;
