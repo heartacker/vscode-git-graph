@@ -2658,7 +2658,7 @@ class GitGraphView {
 			'</div><div class="cdvHeightResize"></div>';
 
 		elem.innerHTML = isDocked ? html : '<td><div class="cdvHeightResize"></div></td><td colspan="' + (this.getNumColumns() - 1) + '"><div id="cdvContentWrapper">' + html + '</div></td>';
-		if (!expandedCommit.loading) this.setCdvDivider();
+		this.setCdvDivider();
 		this.setCdvHeight(elem, isDocked);
 		if (!isDocked) this.renderGraph();
 
