@@ -2785,10 +2785,10 @@ class GitGraphView {
 		let btnIcon = document.getElementById('cdvSummaryToggleBtn')?.getElementsByTagName('svg')?.[0] ?? null;
 		let cdvSummary = document.getElementById('cdvSummary');
 		if (hide && !this.isCdvDocked()) {
-			if (btnIcon) btnIcon.style.transform = 'rotate(-90deg)';
+			if (btnIcon) btnIcon.style.transform = 'rotate(90deg)';
 			cdvSummary!.classList.add('hidden');
 		} else {
-			if (btnIcon) btnIcon.style.transform = 'rotate(90deg)';
+			if (btnIcon) btnIcon.style.transform = 'rotate(-90deg)';
 			cdvSummary!.classList.remove('hidden');
 		}
 		let elem = document.getElementById('cdv');
