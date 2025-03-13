@@ -222,6 +222,7 @@ export interface GitRepoState {
 	showStashes: BooleanOverride;
 	showTags: BooleanOverride;
 	workspaceFolderIndex: number | null;
+	isCdvSummaryHidden: boolean;
 }
 
 
@@ -287,6 +288,7 @@ export interface CommitDetailsViewConfig {
 	readonly fileTreeCompactFolders: boolean;
 	readonly fileViewType: FileViewType;
 	readonly location: CommitDetailsViewLocation;
+	readonly initiallyHideSummary: boolean;
 }
 
 export interface GraphConfig {

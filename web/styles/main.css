@@ -311,6 +311,7 @@ table { border-collapse: collapse; }
 	font-size:13px;
 	line-height:18px;
 	white-space:normal;
+	overflow: visible;
 }
 #cdv.docked{
 	display:block;
@@ -334,6 +335,7 @@ table { border-collapse: collapse; }
 	position:absolute;
 	right:0;
 	width:32px;
+	overflow: hidden;
 }
 
 .cdvControlBtn{
@@ -397,10 +399,15 @@ table { border-collapse: collapse; }
 	top:0;
 	bottom:0;
 	box-sizing:border-box;
-	border-right:1px solid rgba(128,128,128,0.2);
 	overflow-x:hidden;
 	overflow-y:auto;
 }
+#cdvSummary, #cdvFiles, #cdvLoading, #cdvControls {
+	background-color: color-mix(in srgb, var(--vscode-editor-background) 90%, rgba(128, 128, 128,1));
+	border-left:1px solid rgba(128,128,128,0.2);
+	border-bottom:2px solid rgba(128,128,128,0.2);
+}
+
 #cdvDivider{
 	position:absolute;
 	left:50%;
@@ -411,6 +418,7 @@ table { border-collapse: collapse; }
 	left:0;
 	width:50%;
 	padding:10px;
+	padding-right:16px;
 	text-overflow:ellipsis;
 	-webkit-user-select:text;
 	user-select:text;
@@ -464,15 +472,57 @@ table { border-collapse: collapse; }
 	fill:#e00000;
 	opacity:0.8;
 }
+#cdvSummaryToggleBtn{
+	position: absolute;
+	top:0;
+	margin:0;
+	left:-21px;
+	z-index:100;
+	overflow:visible;
+	cursor:pointer;
+	padding:2px;
+	width:16px;
+	height:16px;
+    background-color: color-mix(in srgb, var(--vscode-editor-background) 90%, rgba(128, 128, 128,1));
+	border-left: 1px solid var(--vscode-editor-background);
+}
 
+#cdvSummaryToggleBtn svg{
+	fill:var(--vscode-editor-foreground);
+	fill-opacity:0.6;
+}
+.hidden{
+	display: none;
+}
+#cdvContentWrapper {
+	position: absolute;
+    left: 0;
+    right: 0;
+	top:0;
+	bottom:0;
+    z-index: 11;
+	pointer-events: none;
+
+}
+#cdvContent *, #cdvControls, .cdvHeightResize {
+    pointer-events: auto;
+}
 #cdvFiles{
 	left:50%;
 	right:0;
-	padding:4px 8px 8px 0;
 	-webkit-user-select:none;
 	user-select:none;
+	overflow: visible;
 }
-#cdvFiles ul{
+#cdvFilesViewWrapper{
+	overflow-x:hidden;
+	overflow-y:auto;
+	height: 100%;
+}
+#cdvFilesView{
+	padding:4px 8px 8px 0;
+}
+#cdvFilesView ul{
 	list-style-type:none;
 	-webkit-margin-before:0;
 	-webkit-margin-after:0;
@@ -482,11 +532,11 @@ table { border-collapse: collapse; }
 	margin:0;
 	padding:0 0 0 25px;
 }
-#cdvFiles > ul{
+#cdvFilesView > ul{
 	-webkit-padding-start:10px;
 	padding:0 0 0 10px;
 }
-#cdvFiles li{
+#cdvFilesView li{
 	margin-top:4px;
 	white-space:nowrap;
 	text-overflow:ellipsis;
@@ -502,7 +552,18 @@ table { border-collapse: collapse; }
 	text-align:center;
 	line-height:24px;
 	text-overflow:ellipsis;
+	opacity: 0;
+  	animation: fadeIn 0.25s ease-in-out 1s forwards;
 }
+@keyframes fadeIn {
+	0% {
+	  opacity: 0;
+	}
+	100% {
+	  opacity: 1;
+	}
+}
+
 #cdvLoading svg{
 	display:inline-block;
 	width:15px !important;
@@ -526,16 +587,13 @@ table { border-collapse: collapse; }
 	top:0;
 	bottom:2px;
 }
-#cdv.inline #cdvContent{
-	border-left:1px solid rgba(128,128,128,0.2);
-}
+
 #cdv.inline #cdvDivider{
 	top:0;
 	bottom:6px;
 }
 #cdv.inline .cdvHeightResize{
 	bottom:0;
-	border-bottom:2px solid rgba(128,128,128,0.2);
 }
 
 #cdv.docked #cdvContent, #cdv.docked #cdvControls{
