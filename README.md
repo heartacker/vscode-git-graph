@@ -16,6 +16,12 @@ Main improvements:
 
 ![Additions](https://github.com/hansu/vscode-git-graph/raw/master/resources/demo.gif)
 
+## How to Install
+
+1. Download the latest release from https://github.com/hansu/vscode-git-graph/releases (download the .vsix file in the "Assets" section).
+
+2. Run the VS-Code command "Extensions: Install from VSIX..."
+
 ## Features
 
 * Git Graph View:
@@ -81,7 +87,7 @@ Main improvements:
 
 ## Extension Settings
 
-Detailed information of all Git Graph settings is available [here](https://github.com/hansu/vscode-git-graph/wiki/Extension-Settings), including: descriptions, screenshots, default values and types.
+Detailed information of all Git Graph settings is available [here](https://github.com/hansu/vscode-git-graph/wiki/Extension-Settings), including: descriptions, screenshots, default values and types (not up to date).
 
 A summary of the Git Graph extension settings are:
 * **Commit Details View**:
@@ -91,6 +97,8 @@ A summary of the Git Graph extension settings are:
             * **Compact Folders**: Render the File Tree in the Commit Details View in a compacted form, such that folders with a single child folder are compressed into a single combined folder element.
         * **Type**: Sets the default type of File View used in the Commit Details View.
     * **Location**: Specifies where the Commit Details View is rendered in the Git Graph View.
+
+* **Initially Hide Summary**: Controls whether the commit summary is collapsed (hidden) or expanded when starting Git Graph.
 * **Context Menu Actions Visibility**: Customise which context menu actions are visible. For more information, see the documentation [here](https://github.com/hansu/vscode-git-graph/wiki/Extension-Settings#context-menu-actions-visibility).
 * **Custom Branch Glob Patterns**: An array of Custom Glob Patterns to be shown in the "Branches" dropdown. Example: `[{"name":"Feature Requests", "glob":"heads/feature/*"}]`
 * **Custom Emoji Shortcode Mappings**: An array of custom Emoji Shortcode mappings. Example: `[{"shortcode": ":sparkles:", "emoji":"✨"}]`
@@ -109,6 +117,7 @@ A summary of the Git Graph extension settings are:
 * **Integrated Terminal Shell**: Specifies the path and filename of the Shell executable to be used by the Visual Studio Code Integrated Terminal, when it is opened by Git Graph.
 * **Keyboard Shortcut > \***: Configures the keybindings used for all keyboard shortcuts in the Git Graph View.
 * **Markdown**: Parse and render a frequently used subset of inline Markdown formatting rules in commit messages and tag details (bold, italics, bold & italics, and inline code blocks).
+* **Max Depth Of Repo Search**: Specifies the maximum depth of subfolders to search when discovering repositories in the workspace.
 * **Max Depth Of Repo Search**: Specifies the maximum depth of subfolders to search when discovering repositories in the workspace.
 * **Open New Tab Editor Group**: Specifies the Editor Group where Git Graph should open new tabs, when performing the following actions from the Git Graph View: Viewing the Visual Studio Code Diff View, Opening a File, Viewing a File at a Specific Revision.
 * **Open to the Repo of the Active Text Editor Document**: Open the Git Graph View to the repository containing the active Text Editor document.
@@ -150,6 +159,7 @@ A summary of the Git Graph extension settings are:
 * **Show Status Bar Item**: Show a Status Bar Item that opens the Git Graph View when clicked.
 * **Source Code Provider Integration Location**: Specifies where the "View Git Graph" action appears on the title of SCM Providers.
 * **Tab Icon Colour Theme**: Specifies the colour theme of the icon displayed on the Git Graph tab.
+* **ToolbarButtonVisibility** : Configure the visibility of toolbar items. Currently supported: `{"Remotes": true, "Simplify": true}`
 
 This extension consumes the following settings:
 
