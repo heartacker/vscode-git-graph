@@ -1,11 +1,15 @@
 # Change Log
 
-## 1.31.2 - 2022-02-14
+## 1.31.3 - 2025-03-13
+
+* #3 Add button to collapse commit summary. Thanks [@LariWa](https://github.com/LariWa). The setting `git-graph.commitDetailsView.initiallyHideSummary` controls whether the commit summary is collapsed (hidden) or expanded when starting Git Graph.
+
+## 1.31.2 - 2025-02-14
 
 * Add checkbox 'Allow unrelated histories' when merge action. Thanks [@LaksVister](https://github.com/LaksVister).
 * New setting `git-graph.toolbarButtonVisibility` to configure the visibility of some items of the toolbar. For example: `{"Remotes": true, "Simplify": true}`
 * #33 Add simplifyByDecoration checkbox. Thanks [@XUJINKAI](https://github.com/XUJINKAI).
-* #38 Fix right clicks triggers native context menu on macOS. Thanks [ipcjs](https://github.com/ipcjs).
+* #38 Fix right clicks triggers native context menu on macOS. Thanks [@ipcjs](https://github.com/ipcjs).
 
 ## 1.31.1 - 2024-05-25
 * #33 Add HEAD in branch filter. Thanks [@ipcjs](https://github.com/ipcjs).

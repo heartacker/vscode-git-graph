@@ -1,8 +1,9 @@
 # Git Graph extension for Visual Studio Code
 
-Fork of mhutchie's Git Graph with further improvements.  
+Fork of mhutchie's Git Graph with further improvements.
 Main improvements:
 
+* Added button to collapse commit summary (hansu#3). Set `"git-graph.commitDetailsView.initiallyHideSummary": "true"`to hide the commit summary by default.
 * Added checkbox 'Allow unrelated histories' when merge action
 * New setting `git-graph.toolbarButtonVisibility` to configure the visibility of some items of the toolbar. For example: `{"Remotes": true, "Simplify": true}
 * Added simplifyByDecoration checkbox (hansu#33)
