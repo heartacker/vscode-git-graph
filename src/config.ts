@@ -72,8 +72,7 @@ class Config {
 				: FileViewType.Tree,
 			location: this.getRenamedExtensionSetting<string>('commitDetailsView.location', 'commitDetailsViewLocation', 'Inline') === 'Docked to Bottom'
 				? CommitDetailsViewLocation.DockedToBottom
-				: CommitDetailsViewLocation.Inline,
-			initiallyHideSummary: this.config.get('commitDetailsView.initiallyHideSummary', false)
+				: CommitDetailsViewLocation.Inline
 		};
 	}
 
