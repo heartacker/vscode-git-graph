@@ -2735,6 +2735,7 @@ class GitGraphView {
 			let cdvSummaryToggleBtn = document.getElementById('cdvSummaryToggleBtn');
 			if (cdvSummaryToggleBtn !== null) cdvSummaryToggleBtn.addEventListener('click', () => {
 				this.gitRepos[this.currentRepo].isCdvSummaryHidden = !(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
+				this.saveRepoState();
 				this.hideCdvSummary(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
 			});
 			this.hideCdvSummary(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
