@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.31.4 - 2025-03-26
+
+* #47 Fix "Commit summary always hides when switching focus(#46)". Thanks [@LariWa](https://github.com/LariWa). 
+The setting `git-graph.commitDetailsView.initiallyHideSummary` is removed as Git Graph remembers the last state (per folder).
+
 ## 1.31.3 - 2025-03-13
 
 * #3 Add button to collapse commit summary. Thanks [@LariWa](https://github.com/LariWa). The setting `git-graph.commitDetailsView.initiallyHideSummary` controls whether the commit summary is collapsed (hidden) or expanded when starting Git Graph.
