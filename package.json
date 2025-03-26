@@ -138,11 +138,6 @@
 					"default": "Inline",
 					"description": "Specifies where the Commit Details View is rendered in the Git Graph View."
 				},
-				"git-graph.commitDetailsView.initiallyHideSummary": {
-					"type": "boolean",
-					"default": false,
-					"description": "Initially hide the commit summary in the Commit Details View."
-				},
 				"git-graph.contextMenuActionsVisibility": {
 					"type": "object",
 					"default": {},

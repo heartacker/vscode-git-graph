@@ -184,7 +184,6 @@ class GitGraphView {
 				name: this.gitRepos[this.currentRepo].name || getRepoName(this.currentRepo)
 			}, 'Opening Terminal');
 		});
-		this.gitRepos[this.currentRepo].isCdvSummaryHidden = this.config.commitDetailsView.initiallyHideSummary;
 	}
 
 
@@ -2735,6 +2734,7 @@ class GitGraphView {
 			let cdvSummaryToggleBtn = document.getElementById('cdvSummaryToggleBtn');
 			if (cdvSummaryToggleBtn !== null) cdvSummaryToggleBtn.addEventListener('click', () => {
 				this.gitRepos[this.currentRepo].isCdvSummaryHidden = !(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
+				this.saveRepoState();
 				this.hideCdvSummary(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
 			});
 			this.hideCdvSummary(this.gitRepos[this.currentRepo].isCdvSummaryHidden);
