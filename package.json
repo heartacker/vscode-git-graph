@@ -224,15 +224,15 @@
 								},
 								"merge": {
 									"type": "boolean",
-									"title": "Merge into current branch..."
+									"title": "Merge into current Branch..."
 								},
 								"rebase": {
 									"type": "boolean",
-									"title": "Rebase current branch on this Commit..."
+									"title": "Rebase current Branch on this Commit..."
 								},
 								"reset": {
 									"type": "boolean",
-									"title": "Reset current branch to this Commit..."
+									"title": "Reset current Branch to this Commit..."
 								},
 								"copyHash": {
 									"type": "boolean",
@@ -693,12 +693,12 @@
 				"git-graph.dialog.rebase.ignoreDate": {
 					"type": "boolean",
 					"default": true,
-					"description": "Default state of the \"Ignore Date (non-interactive rebase only)\" checkbox."
+					"description": "Checkbox \"Ignore Date (non-interactive rebase only)\" active by default."
 				},
 				"git-graph.dialog.rebase.launchInteractiveRebase": {
 					"type": "boolean",
 					"default": false,
-					"description": "Default state of the \"Launch Interactive Rebase in new Terminal\" checkbox."
+					"description": "Checkbox \"Interactive Rebase (launch in new Terminal)\" active by default."
 				},
 				"git-graph.dialog.resetCurrentBranchToCommit.mode": {
 					"type": "string",
