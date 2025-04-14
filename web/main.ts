@@ -1,4 +1,3 @@
-
 class GitGraphView {
 	private gitRepos: GG.GitRepoSet;
 	private gitBranches: ReadonlyArray<string> = [];
@@ -2052,7 +2051,6 @@ class GitGraphView {
 				this.repoDropdown.refresh();
 				this.branchDropdown.refresh();
 				this.authorDropdown.refresh();
-
 			}
 			if (fmc !== findMatchColour) {
 				findMatchColour = fmc;
