@@ -299,8 +299,6 @@ class GitGraphView {
 		filterCurrentBranches();
 
 		this.saveState();
-		this.currentAuthors = [];
-		this.currentAuthors.push(SHOW_ALL_BRANCHES);
 
 		// Set up branch dropdown options
 		this.branchDropdown.setOptions(this.getBranchOptions(true), this.currentBranches);
