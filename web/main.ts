@@ -1028,7 +1028,6 @@ class GitGraphView {
 	private getBranchContextMenuActions(target: DialogTarget & RefTarget): ContextMenuActions {
 		const refName = target.ref, visibility = this.config.contextMenuActionsVisibility.branch;
 		const isSelectedInBranchesDropdown = this.branchDropdown.isSelected(refName);
-		// const isSelectedInBranchesDropdown = this.authorDropdown.isSelected(refName);
 
 		return [[
 			{
