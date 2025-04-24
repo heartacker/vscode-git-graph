@@ -127,7 +127,7 @@ class Dropdown {
 	 */
 	public isSelected(value: string) {
 		if (this.options.length > 0) {
-			if ((this.multipleAllowed) && this.optionsSelected[0]) {
+			if (this.multipleAllowed && this.optionsSelected[0]) {
 				// Multiple options can be selected, and "Show All" is selected.
 				return true;
 			}
@@ -237,7 +237,7 @@ class Dropdown {
 		for (let i = 0; i < this.options.length; i++) {
 			const escapedName = escapeHtml(this.options[i].name);
 			html += '<div class="dropdownOption' + (this.optionsSelected[i] ? ' ' + CLASS_SELECTED : '') + '" data-id="' + i + '" title="' + escapedName + '">' +
-				((this.multipleAllowed && !this.selectMultipleWithCtrl) && this.optionsSelected[i] ? '<div class="dropdownOptionMultiSelected">' + SVG_ICONS.check + '</div>' : '') +
+				(this.multipleAllowed && !this.selectMultipleWithCtrl && this.optionsSelected[i] ? '<div class="dropdownOptionMultiSelected">' + SVG_ICONS.check + '</div>' : '') +
 				escapedName + (typeof this.options[i].hint === 'string' && this.options[i].hint !== '' ? '<span class="dropdownOptionHint">' + escapeHtml(this.options[i].hint!) + '</span>' : '') +
 				(this.showInfo ? '<div class="dropdownOptionInfo" title="' + escapeHtml(this.options[i].value) + '">' + SVG_ICONS.info + '</div>' : '') +
 				'</div>';
@@ -297,7 +297,7 @@ class Dropdown {
 		if (this.doubleClickTimeout !== null) this.clearDoubleClickTimeout();
 		if (doubleClick) {
 			// Double click
-			if ((this.multipleAllowed) && option === 0) {
+			if (this.multipleAllowed && option === 0) {
 				for (let i = 1; i < this.optionsSelected.length; i++) {
 					this.optionsSelected[i] = !this.optionsSelected[i];
 				}
