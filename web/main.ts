@@ -237,7 +237,7 @@ class GitGraphView {
 		this.gitStashes = [];
 		this.gitTags = [];
 		this.currentBranches = null;
-		this.currentAuthors = null;
+		this.currentAuthors = [];
 		this.renderFetchButton();
 		this.closeCommitDetails(false);
 		this.settingsWidget.close();
