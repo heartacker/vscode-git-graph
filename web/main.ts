@@ -1135,7 +1135,7 @@ class GitGraphView {
 			{
 				title: 'Select in Branches Dropdown',
 				visible: visibility.selectInBranchesDropdown && (!isSelectedInBranchesDropdown || this.branchDropdown.isShowAllSelected()),
-				onClick: () => this.branchDropdown.selectOption(refName)
+				onClick: (e) => this.branchDropdown.selectOption(refName, e)
 			},
 			{
 				title: 'Unselect in Branches Dropdown',
@@ -1373,7 +1373,7 @@ class GitGraphView {
 			{
 				title: 'Select in Branches Dropdown',
 				visible: visibility.selectInBranchesDropdown && !isSelectedInBranchesDropdown,
-				onClick: () => this.branchDropdown.selectOption(prefixedRefName)
+				onClick: (e) => this.branchDropdown.selectOption(prefixedRefName, e)
 			},
 			{
 				title: 'Unselect in Branches Dropdown',

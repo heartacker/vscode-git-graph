@@ -152,10 +152,10 @@ class Dropdown {
 	 * Select a specific value in the dropdown.
 	 * @param value The value to select.
 	 */
-	public selectOption(value: string) {
+	public selectOption(value: string, event: MouseEvent | undefined) {
 		const optionIndex = this.options.findIndex((option) => value === option.value);
 		if (optionIndex < 0 && (this.optionsSelected[0] || this.optionsSelected[optionIndex])) return;
-		if (this.multipleAllowed && !this.selectMultipleWithCtrl && !this.optionsSelected[0]) {
+		if (this.multipleAllowed && !this.optionsSelected[0] && (!this.selectMultipleWithCtrl || (event && (event.ctrlKey || event.metaKey)))) {
 			// Select the option with the specified value
 			this.optionsSelected[optionIndex] = true;
 		} else {
