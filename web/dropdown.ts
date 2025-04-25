@@ -10,6 +10,7 @@ interface DropdownOption {
 class Dropdown {
 	private readonly showInfo: boolean;
 	private readonly multipleAllowed: boolean;
+	private readonly selectMultipleWithCtrl: boolean;
 	private readonly changeCallback: (values: string[]) => void;
 
 	private options: ReadonlyArray<DropdownOption> = [];
@@ -34,10 +35,12 @@ class Dropdown {
 	 * @param dropdownType The type of content the dropdown is being used for.
 	 * @param changeCallback A callback to be invoked when the selected item(s) of the dropdown changes.
 	 * @returns The Dropdown instance.
+	 * @param selectMultipleWithCtrl Select multiple items using Ctrl
 	 */
-	constructor(id: string, showInfo: boolean, multipleAllowed: boolean, dropdownType: string, changeCallback: (values: string[]) => void) {
+	constructor(id: string, showInfo: boolean, multipleAllowed: boolean, dropdownType: string, changeCallback: (values: string[]) => void, selectMultipleWithCtrl: boolean = false) {
 		this.showInfo = showInfo;
 		this.multipleAllowed = multipleAllowed;
+		this.selectMultipleWithCtrl = selectMultipleWithCtrl;
 		this.changeCallback = changeCallback;
 		this.elem = document.getElementById(id)!;
 
@@ -61,7 +64,7 @@ class Dropdown {
 		this.currentValueElem = this.elem.appendChild(document.createElement('div'));
 		this.currentValueElem.className = 'dropdownCurrentValue';
 
-		alterClass(this.elem, 'multi', multipleAllowed);
+		alterClass(this.elem, 'multi', (multipleAllowed && !selectMultipleWithCtrl));
 		this.elem.appendChild(this.menuElem);
 
 		document.addEventListener('click', (e) => {
@@ -80,7 +83,7 @@ class Dropdown {
 				} else {
 					const option = <HTMLElement | null>(<HTMLElement>e.target).closest('.dropdownOption');
 					if (option !== null && option.parentNode === this.optionsElem && typeof option.dataset.id !== 'undefined') {
-						this.onOptionClick(parseInt(option.dataset.id!));
+						this.onOptionClick(parseInt(option.dataset.id!), e);
 					}
 				}
 			}
@@ -143,18 +146,24 @@ class Dropdown {
 	 */
 	public selectOption(value: string) {
 		const optionIndex = this.options.findIndex((option) => value === option.value);
-		if (this.multipleAllowed && optionIndex > -1 && !this.optionsSelected[0] && !this.optionsSelected[optionIndex]) {
+		if (optionIndex < 0 && (this.optionsSelected[0] || this.optionsSelected[optionIndex])) return;
+		if (this.multipleAllowed && !this.selectMultipleWithCtrl) {
 			// Select the option with the specified value
 			this.optionsSelected[optionIndex] = true;
-
-			// A change has occurred, re-render the dropdown options
-			const menuScroll = this.menuElem.scrollTop;
-			this.render();
-			if (this.dropdownVisible) {
-				this.menuElem.scroll(0, menuScroll);
+		} else {
+			for (let i = 1; i < this.optionsSelected.length; i++) {
+				this.optionsSelected[i] = false;
 			}
-			this.changeCallback(this.getSelectedOptions(false));
+			this.optionsSelected[optionIndex] = true;
 		}
+		// A change has occurred, re-render the dropdown options
+		const menuScroll = this.menuElem.scrollTop;
+		this.render();
+		if (this.dropdownVisible) {
+			this.menuElem.scroll(0, menuScroll);
+		}
+		this.changeCallback(this.getSelectedOptions(false));
+
 	}
 
 	/**
@@ -163,7 +172,8 @@ class Dropdown {
 	 */
 	public unselectOption(value: string) {
 		const optionIndex = this.options.findIndex((option) => value === option.value);
-		if (this.multipleAllowed && optionIndex > -1 && (this.optionsSelected[0] || this.optionsSelected[optionIndex])) {
+		if (optionIndex < 0 && (this.optionsSelected[0] || this.optionsSelected[optionIndex])) return;
+		if (this.multipleAllowed) {
 			if (this.optionsSelected[0]) {
 				// Show All is currently selected, so unselect it, and select all branch options
 				this.optionsSelected[0] = false;
@@ -227,7 +237,7 @@ class Dropdown {
 		for (let i = 0; i < this.options.length; i++) {
 			const escapedName = escapeHtml(this.options[i].name);
 			html += '<div class="dropdownOption' + (this.optionsSelected[i] ? ' ' + CLASS_SELECTED : '') + '" data-id="' + i + '" title="' + escapedName + '">' +
-				(this.multipleAllowed && this.optionsSelected[i] ? '<div class="dropdownOptionMultiSelected">' + SVG_ICONS.check + '</div>' : '') +
+				(this.multipleAllowed && !this.selectMultipleWithCtrl && this.optionsSelected[i] ? '<div class="dropdownOptionMultiSelected">' + SVG_ICONS.check + '</div>' : '') +
 				escapedName + (typeof this.options[i].hint === 'string' && this.options[i].hint !== '' ? '<span class="dropdownOptionHint">' + escapeHtml(this.options[i].hint!) + '</span>' : '') +
 				(this.showInfo ? '<div class="dropdownOptionInfo" title="' + escapeHtml(this.options[i].value) + '">' + SVG_ICONS.info + '</div>' : '') +
 				'</div>';
@@ -240,7 +250,7 @@ class Dropdown {
 		// Width must be at least 138px for the filter element.
 		// Don't need to add 12px if showing (info icons or multi checkboxes) and the scrollbar isn't needed. The scrollbar isn't needed if: menuElem height + filter input (25px) < 297px
 		const menuElemRect = this.menuElem.getBoundingClientRect();
-		this.currentValueElem.style.width = Math.max(Math.ceil(menuElemRect.width) + ((this.showInfo || this.multipleAllowed) && menuElemRect.height < 272 ? 0 : 12), 138) + 'px';
+		this.currentValueElem.style.width = Math.max(Math.ceil(menuElemRect.width) + ((this.showInfo || (this.multipleAllowed && !this.selectMultipleWithCtrl)) && menuElemRect.height < 272 ? 0 : 12), 138) + 'px';
 		this.menuElem.style.cssText = 'right:0; overflow-y:auto; max-height:297px;'; // Max height for the dropdown is [filter (31px) + 9.5 * dropdown item (28px) = 297px]
 		if (this.dropdownVisible) this.filter();
 	}
@@ -280,12 +290,11 @@ class Dropdown {
 	 * Select a dropdown option.
 	 * @param option The index of the option to select.
 	 */
-	private onOptionClick(option: number) {
+	private onOptionClick(option: number, event?: MouseEvent) {
 		// Note: Show All is always the first option (0 index) when multiple selected items are allowed
 		let change = false;
 		let doubleClick = this.doubleClickTimeout !== null && this.lastClicked === option;
 		if (this.doubleClickTimeout !== null) this.clearDoubleClickTimeout();
-
 		if (doubleClick) {
 			// Double click
 			if (this.multipleAllowed && option === 0) {
@@ -296,7 +305,7 @@ class Dropdown {
 			}
 		} else {
 			// Single Click
-			if (this.multipleAllowed) {
+			if (this.multipleAllowed && (!this.selectMultipleWithCtrl || (event && (event.ctrlKey || event.metaKey)))) {
 				// Multiple dropdown options can be selected
 				if (option === 0) {
 					// Show All was selected
@@ -324,15 +333,27 @@ class Dropdown {
 			} else {
 				// Only a single dropdown option can be selected
 				this.close();
-				if (this.lastSelected !== option) {
+				if (option === 0) {
+					// Show All was selected
+					if (!this.optionsSelected[0]) {
+						this.optionsSelected[0] = true;
+						for (let i = 1; i < this.optionsSelected.length; i++) {
+							this.optionsSelected[i] = false;
+						}
+						change = true;
+					}
+				} else if (this.lastSelected !== option) {
+					for (let i = 0; i < this.optionsSelected.length; i++) {
+						this.optionsSelected[i] = false;
+					}
 					this.optionsSelected[this.lastSelected] = false;
 					this.optionsSelected[option] = true;
-					this.lastSelected = option;
 					change = true;
 				}
 			}
 
 			if (change) {
+				this.lastSelected = option;
 				// If a change has occurred, trigger the callback
 				this.changeCallback(this.getSelectedOptions(false));
 			}
