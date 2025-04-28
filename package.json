@@ -1,27 +1,33 @@
 {
-	"name": "git-graph-2",
-	"displayName": "Git Graph 2",
+	"name": "git-graph-ai",
+	"displayName": "Git Graph AI",
 	"version": "1.31.5",
-	"publisher": "hansu",
+	"publisher": "heartacker",
 	"author": {
 		"name": "Michael Hutchison",
 		"email": "mhutchie@16right.com"
 	},
-	"description": "Fork of mhutchie's Git Graph with further improvements.",
+	"description": "Fork of mhutchie's Git Graph with hansu's further improvements.",
 	"keywords": [
 		"git",
+		"github",
+		"scm",
 		"graph",
 		"visualise",
 		"diff",
-		"action"
+		"action",
+		"ai",
+		"fork"
 	],
 	"categories": [
-		"Other"
+		"Other",
+		"Visualization",
+		"SCM Providers"
 	],
-	"homepage": "https://github.com/hansu/vscode-git-graph",
+	"homepage": "https://github.com/heartacker/vscode-git-graph",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/hansu/vscode-git-graph.git"
+		"url": "https://github.com/heartacker/vscode-git-graph.git"
 	},
 	"bugs": {
 		"url": "https://github.com/hansu/vscode-git-graph/issues"
@@ -36,7 +42,8 @@
 		"workspace"
 	],
 	"activationEvents": [
-		"*"
+		"onStartupFinished",
+		"onCommand:git-graph.view"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -410,7 +417,7 @@
 							}
 						}
 					},
-					"markdownDescription": "Customise which context menu actions are visible. For example, if you want to hide the rebase action from the branch context menu, a suitable value for this setting is `{ \"branch\": { \"rebase\": false } }`. For more information of how to configure this setting, view the documentation [here](https://github.com/hansu/vscode-git-graph/wiki/Extension-Settings#context-menu-actions-visibility)."
+					"markdownDescription": "Customise which context menu actions are visible. For example, if you want to hide the rebase action from the branch context menu, a suitable value for this setting is `{ \"branch\": { \"rebase\": false } }`. For more information of how to configure this setting, view the documentation [here](https://github.com/heartacker/vscode-git-graph/wiki/Extension-Settings#context-menu-actions-visibility)."
 				},
 				"git-graph.customBranchGlobPatterns": {
 					"type": "array",
@@ -480,12 +487,12 @@
 							"templateUrl": {
 								"type": "string",
 								"title": "Template URL",
-								"markdownDescription": "A template URL that can be used to create a Pull Request, after the $1 - $8 variables have been substituted to construct the final URL. For information on how to configure this setting, see the documentation [here](https://github.com/hansu/vscode-git-graph/wiki/Configuring-a-custom-Pull-Request-Provider)."
+								"markdownDescription": "A template URL that can be used to create a Pull Request, after the $1 - $8 variables have been substituted to construct the final URL. For information on how to configure this setting, see the documentation [here](https://github.com/heartacker/vscode-git-graph/wiki/Configuring-a-custom-Pull-Request-Provider)."
 							}
 						}
 					},
 					"default": [],
-					"markdownDescription": "An array of custom Pull Request providers that can be used in the \"Pull Request Creation\" Integration. For information on how to configure this setting, see the documentation [here](https://github.com/hansu/vscode-git-graph/wiki/Configuring-a-custom-Pull-Request-Provider)."
+					"markdownDescription": "An array of custom Pull Request providers that can be used in the \"Pull Request Creation\" Integration. For information on how to configure this setting, see the documentation [here](https://github.com/heartacker/vscode-git-graph/wiki/Configuring-a-custom-Pull-Request-Provider)."
 				},
 				"git-graph.date.format": {
 					"type": "string",

@@ -1,6 +1,8 @@
 # Git Graph extension for Visual Studio Code
 
-Fork of mhutchie's Git Graph with further improvements.
+Fork of [hansu](https://github.com/hansu/vscode-git-graph.git)'s Git Graph，[💗just publish for myself](https://github.com/heartacker/vscode-git-graph.git).
+> Fork of [mhutchie](https://github.com/mhutchie/vscode-git-graph)'s Git Graph with further improvements.
+
 Main improvements:
 
 * Selection of single branch and/or author. Can be activated with `git-graph.repository.singleBranchSelect` and `git-graph.repository.singleAuthorSelect`
