@@ -141,17 +141,25 @@ class Dropdown {
 	}
 
 	/**
+	 * Is Show All selected in the dropdown
+	 * @returns TRUE => Show All is selected, FALSE => Show All is not selected
+	 */
+	public isShowAllSelected() {
+		return this.optionsSelected[0];
+	}
+
+	/**
 	 * Select a specific value in the dropdown.
 	 * @param value The value to select.
 	 */
-	public selectOption(value: string) {
+	public selectOption(value: string, event: MouseEvent | undefined) {
 		const optionIndex = this.options.findIndex((option) => value === option.value);
 		if (optionIndex < 0 && (this.optionsSelected[0] || this.optionsSelected[optionIndex])) return;
-		if (this.multipleAllowed && !this.selectMultipleWithCtrl) {
+		if (this.multipleAllowed && !this.optionsSelected[0] && (!this.selectMultipleWithCtrl || (event && (event.ctrlKey || event.metaKey)))) {
 			// Select the option with the specified value
 			this.optionsSelected[optionIndex] = true;
 		} else {
-			for (let i = 1; i < this.optionsSelected.length; i++) {
+			for (let i = 0; i < this.optionsSelected.length; i++) {
 				this.optionsSelected[i] = false;
 			}
 			this.optionsSelected[optionIndex] = true;
