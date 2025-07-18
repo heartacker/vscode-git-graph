@@ -18,7 +18,7 @@ class Dropdown {
 	private lastSelected: number = 0; // Only used when multipleAllowed === false
 	private dropdownVisible: boolean = false;
 	private lastClicked: number = 0;
-	private doubleClickTimeout: NodeJS.Timer | null = null;
+	private doubleClickTimeout: number | null = null;
 
 	private readonly elem: HTMLElement;
 	private readonly currentValueElem: HTMLDivElement;
@@ -375,7 +375,7 @@ class Dropdown {
 		}
 
 		this.lastClicked = option;
-		this.doubleClickTimeout = setTimeout(() => {
+		this.doubleClickTimeout = window.setTimeout(() => {
 			this.clearDoubleClickTimeout();
 		}, 500);
 	}

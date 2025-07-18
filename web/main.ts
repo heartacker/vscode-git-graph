@@ -161,7 +161,12 @@ class GitGraphView {
 			this.requestLoadRepoInfoAndCommits(false, false);
 		}
 
-		const currentBtn = document.getElementById('currentBtn')!, fetchBtn = document.getElementById('fetchBtn')!, findBtn = document.getElementById('findBtn')!, settingsBtn = document.getElementById('settingsBtn')!, terminalBtn = document.getElementById('terminalBtn')!;
+		const currentBtn = document.getElementById('currentBtn')!,
+			fetchBtn = document.getElementById('fetchBtn')!,
+			findBtn = document.getElementById('findBtn')!,
+			settingsBtn = document.getElementById('settingsBtn')!,
+			terminalBtn = document.getElementById('terminalBtn')!;
+
 		currentBtn.innerHTML = SVG_ICONS.current;
 		currentBtn.addEventListener('click', () => {
 			if (this.commitHead) {
@@ -2065,7 +2070,7 @@ class GitGraphView {
 	}
 
 	private observeViewScroll() {
-		let active = this.viewElem.scrollTop > 0, timeout: NodeJS.Timer | null = null;
+		let active = this.viewElem.scrollTop > 0, timeout: number | null = null;
 		this.viewElem.addEventListener('scroll', () => {
 			const scrollTop = this.viewElem.scrollTop;
 			if (active !== scrollTop > 0) {
@@ -2081,7 +2086,7 @@ class GitGraphView {
 			}
 
 			if (timeout !== null) clearTimeout(timeout);
-			timeout = setTimeout(() => {
+			timeout = window.setTimeout(() => {
 				this.scrollTop = scrollTop;
 				this.saveState();
 				timeout = null;

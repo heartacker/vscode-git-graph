@@ -106,15 +106,15 @@ export function getLifeCycleStateInDirectory(directory: string) {
  * @param directory The directory to store the life cycle state.
  * @param state The state to save.
  */
-export function saveLifeCycleStateInDirectory(directory: string, state: LifeCycleState) {
-	return new Promise((resolve, reject) => {
+export function saveLifeCycleStateInDirectory(directory: string, state: LifeCycleState): Promise<void> {
+	return new Promise<void>((resolve, reject) => {
 		fs.mkdir(directory, (err) => {
 			if (!err || err.code === 'EEXIST') {
 				fs.writeFile(getLifeCycleFilePathInDirectory(directory), JSON.stringify(state), (err) => {
 					if (err) {
 						reject();
 					} else {
-						resolve();
+						resolve(undefined);
 					}
 				});
 			} else {

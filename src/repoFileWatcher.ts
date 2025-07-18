@@ -12,7 +12,7 @@ export class RepoFileWatcher {
 	private readonly repoChangeCallback: () => void;
 	private repo: string | null = null;
 	private fsWatcher: vscode.FileSystemWatcher | null = null;
-	private refreshTimeout: NodeJS.Timer | null = null;
+	private refreshTimeout: ReturnType<typeof setTimeout> | null = null;
 	private muted: boolean = false;
 	private resumeAt: number = 0;
 

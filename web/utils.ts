@@ -476,7 +476,7 @@ function observeElemScroll(id: string, initialScrollTop: number, onScroll: (scro
 	const elem = document.getElementById(id);
 	if (elem === null) return;
 
-	let timeout: NodeJS.Timer | null = null;
+	let timeout: number | null = null;
 	elem.scroll(0, initialScrollTop);
 	elem.addEventListener('scroll', () => {
 		const elem = document.getElementById(id);
@@ -485,7 +485,7 @@ function observeElemScroll(id: string, initialScrollTop: number, onScroll: (scro
 		onScroll(elem.scrollTop);
 
 		if (timeout !== null) clearTimeout(timeout);
-		timeout = setTimeout(() => {
+		timeout = window.setTimeout(() => {
 			onScrolled();
 			timeout = null;
 		}, 250);
