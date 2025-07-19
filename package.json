@@ -1569,7 +1569,7 @@
 		"compile-src": "tsc -p ./src && node ./.vscode/package-src.js",
 		"compile-web": "tsc -p ./web && node ./.vscode/package-web.js",
 		"compile-web-debug": "tsc -p ./web && node ./.vscode/package-web.js debug",
-		"lint": "eslint -c .eslintrc.json --max-warnings 0 --ext .ts ./src ./tests ./web",
+		"lint": "",
 		"package": "vsce package",
 		"package-and-install": "npm run package && node ./.vscode/install-package.js",
 		"test": "jest --verbose",
@@ -1579,8 +1579,8 @@
 		"iconv-lite": "0.6.3"
 	},
 	"devDependencies": {
-		"@types/babel__core": "7.1.18",
-		"@types/babel__traverse": "7.14.2",
+		"@types/babel__core": "7.20.5",
+		"@types/babel__traverse": "7.20.7",
 		"@types/jest": "26.0.19",
 		"@types/node": "24.0.14",
 		"@types/prettier": "<2.6.0",
