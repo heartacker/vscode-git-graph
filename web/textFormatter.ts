@@ -112,17 +112,104 @@ class TextFormatter {
 	private readonly commits: ReadonlyArray<GG.GitCommit>;
 	private readonly issueLinking: IssueLinking | null = null;
 
-	private static readonly BACKTICK_REGEXP: RegExp = /(\\*)(`+)/gu;
-	private static readonly BACKSLASH_ESCAPE_REGEXP: RegExp = /\\[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E]/gu;
-	private static readonly COMMIT_REGEXP: RegExp = /\b([0-9a-fA-F]{6,})\b/gu;
-	private static readonly EMOJI_REGEXP: RegExp = /:([A-Za-z0-9-_]+):/gu;
-	private static readonly EMPHASIS_REGEXP: RegExp = /(\\+|[^*_]?)([*_]+)(.?)/gu;
-	private static readonly INDENT_REGEXP: RegExp = /^[ \t]+/u;
-	private static readonly PUNCTUATION_REGEXP: RegExp = /[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E\u00A1\u00A7\u00AB\u00B6\u00B7\u00BB\u00BF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E4F\u2E52\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]/u;
-	private static readonly URL_REGEXP: RegExp = /https?:\/\/\S+[^,.?!'":;\s]/gu;
-	private static readonly WHITESPACE_REGEXP: RegExp = /^([\u0009\u000A\u000C\u000D\u0020\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000]|)$/u;
-	private static readonly EMOJI_MAPPINGS: { [shortcode: string]: string } = { 'adhesive_bandage': '🩹', 'alembic': '⚗', 'alien': '👽', 'ambulance': '🚑', 'apple': '🍎', 'arrow_down': '⬇️', 'arrow_up': '⬆️', 'art': '🎨', 'beers': '🍻', 'bento': '🍱', 'bookmark': '🔖', 'books': '📚', 'boom': '💥', 'bug': '🐛', 'building_construction': '🏗', 'bulb': '💡', 'busts_in_silhouette': '👥', 'camera_flash': '📸', 'card_file_box': '🗃', 'card_index': '📇', 'chart_with_upwards_trend': '📈', 'checkered_flag': '🏁', 'children_crossing': '🚸', 'clown_face': '🤡', 'construction': '🚧', 'construction_worker': '👷', 'dizzy': '💫', 'egg': '🥚', 'exclamation': '❗', 'fire': '🔥', 'globe_with_meridians': '🌐', 'goal_net': '🥅', 'green_apple': '🍏', 'green_heart': '💚', 'hammer': '🔨', 'heavy_check_mark': '✔️', 'heavy_minus_sign': '➖', 'heavy_plus_sign': '➕', 'iphone': '📱', 'label': '🏷️', 'lipstick': '💄', 'lock': '🔒', 'loud_sound': '🔊', 'mag': '🔍', 'memo': '📝', 'mute': '🔇', 'new': '🆕', 'ok_hand': '👌', 'package': '📦', 'page_facing_up': '📄', 'passport_control': '🛂', 'pencil': '📝', 'pencil2': '✏️', 'penguin': '🐧', 'poop': '💩', 'pushpin': '📌', 'racehorse': '🐎', 'recycle': '♻️', 'rewind': '⏪', 'robot': '🤖', 'rocket': '🚀', 'rotating_light': '🚨', 'see_no_evil': '🙈', 'seedling': '🌱', 'shirt': '👕', 'sparkles': '✨', 'speech_balloon': '💬', 'tada': '🎉', 'triangular_flag_on_post': '🚩', 'triangular_ruler': '📐', 'truck': '🚚', 'twisted_rightwards_arrows': '🔀', 'video_game': '🎮', 'wastebasket': '🗑', 'whale': '🐳', 'wheel_of_dharma': '☸️', 'wheelchair': '♿️', 'white_check_mark': '✅', 'wrench': '🔧', 'zap': '⚡️' };
-	private static readonly ENCLOSING_GROUPS: { [close: string]: string } = { ')': '(', ']': '[', '}': '{', '>': '<', '*': '*', '_': '_' };
+	private static readonly BACKTICK_REGEXP: RegExp = /(\\*)(`+)/g;
+	private static readonly BACKSLASH_ESCAPE_REGEXP: RegExp = /\\[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E]/g;
+	private static readonly COMMIT_REGEXP: RegExp = /\b([0-9a-fA-F]{6,})\b/g;
+	private static readonly EMOJI_REGEXP: RegExp = /:([A-Za-z0-9-_]+):/g;
+	private static readonly EMPHASIS_REGEXP: RegExp = /(\\+|[^*_]?)([*_]+)(.?)/g;
+	private static readonly INDENT_REGEXP: RegExp = /^[ \t]+/;
+	private static readonly PUNCTUATION_REGEXP: RegExp = /[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007E\u00A1\u00A7\u00AB\u00B6\u00B7\u00BB\u00BF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E4F\u2E52\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]/;
+	private static readonly URL_REGEXP: RegExp = /https?:\/\/\S+[^,.?!'":;\s]/g;
+	private static readonly WHITESPACE_REGEXP: RegExp = /^([\u0009\u000A\u000C\u000D\u0020\u00A0\u1680\u2000-\u200A\u202F\u205F\u3000]|)$/;
+	private static readonly EMOJI_MAPPINGS: { [shortcode: string]: string } = {
+		'adhesive_bandage': '🩹',
+		'alembic': '⚗',
+		'alien': '👽',
+		'ambulance': '🚑',
+		'apple': '🍎',
+		'arrow_down': '⬇️',
+		'arrow_up': '⬆️',
+		'art': '🎨',
+		'beers': '🍻',
+		'bento': '🍱',
+		'bookmark': '🔖',
+		'books': '📚',
+		'boom': '💥', 'bug': '🐛',
+		'building_construction': '🏗',
+		'bulb': '💡',
+		'busts_in_silhouette': '👥',
+		'camera_flash': '📸',
+		'card_file_box': '🗃',
+		'card_index': '📇',
+		'chart_with_upwards_trend': '📈',
+		'checkered_flag': '🏁',
+		'children_crossing': '🚸',
+		'clown_face': '🤡',
+		'construction': '🚧',
+		'construction_worker': '👷',
+		'dizzy': '💫',
+		'egg': '🥚',
+		'exclamation': '❗',
+		'fire': '🔥',
+		'globe_with_meridians': '🌐',
+		'goal_net': '🥅',
+		'green_apple': '🍏',
+		'green_heart': '💚',
+		'hammer': '🔨',
+		'heavy_check_mark': '✔️',
+		'heavy_minus_sign': '➖',
+		'heavy_plus_sign': '➕',
+		'iphone': '📱',
+		'label': '🏷️',
+		'lipstick': '💄',
+		'lock': '🔒',
+		'loud_sound': '🔊',
+		'mag': '🔍',
+		'memo': '📝',
+		'mute': '🔇',
+		'new': '🆕',
+		'ok_hand': '👌',
+		'package': '📦',
+		'page_facing_up': '📄',
+		'passport_control': '🛂',
+		'pencil': '📝',
+		'pencil2': '✏️',
+		'penguin': '🐧',
+		'poop': '💩',
+		'pushpin': '📌',
+		'racehorse': '🐎',
+		'recycle': '♻️',
+		'rewind': '⏪',
+		'robot': '🤖',
+		'rocket': '🚀',
+		'rotating_light': '🚨',
+		'see_no_evil': '🙈',
+		'seedling': '🌱',
+		'shirt': '👕',
+		'sparkles': '✨',
+		'speech_balloon': '💬',
+		'tada': '🎉',
+		'triangular_flag_on_post': '🚩',
+		'triangular_ruler': '📐',
+		'truck': '🚚',
+		'twisted_rightwards_arrows': '🔀',
+		'video_game': '🎮',
+		'wastebasket': '🗑',
+		'whale': '🐳',
+		'wheel_of_dharma': '☸️',
+		'wheelchair': '♿️',
+		'white_check_mark': '✅',
+		'wrench': '🔧',
+		'zap': '⚡️'
+	};
+	private static readonly ENCLOSING_GROUPS: { [close: string]: string } = {
+		')': '(',
+		']': '[',
+		'}': '{',
+		'>': '<',
+		'*': '*',
+		'_': '_'
+	};
 
 	/**
 	 * Construct a TextFormatter instance.

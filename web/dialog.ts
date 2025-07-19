@@ -91,7 +91,7 @@ class Dialog {
 	private type: DialogType | null = null;
 	private customSelects: { [inputIndex: string]: CustomSelect } = {};
 
-	private static readonly WHITESPACE_REGEXP = /\s/gu;
+	private static readonly WHITESPACE_REGEXP = /\s/g;
 
 	/**
 	 * Show a confirmation dialog to the user.
